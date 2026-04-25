@@ -1,0 +1,48 @@
+{
+    "manifest_version": 3,
+    "name": "Teeinblue Token",
+    "version": "1.0.0",
+    "description": "Capture and copy current Teeinblue Bearer token.",
+    "permissions": [
+        "storage",
+        "clipboardWrite"
+    ],
+    "host_permissions": [
+        "https://portal.teeinblue.com/*"
+    ],
+    "icons": {
+        "16": "icon16.png",
+        "48": "icon48.png",
+        "128": "icon128.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://portal.teeinblue.com/*"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "run_at": "document_start"
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "injected.js"
+            ],
+            "matches": [
+                "https://portal.teeinblue.com/*"
+            ]
+        }
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_title": "Teeinblue Token",
+        "default_icon": {
+            "16": "icon16.png",
+            "48": "icon48.png",
+            "128": "icon128.png"
+        }
+    }
+}
