@@ -37,6 +37,26 @@
             font-weight: bold;
             background: #2563eb;
             color: white;
+            transition: transform 140ms ease, box-shadow 140ms ease, opacity 140ms ease;
+            box-shadow: 0 6px 18px rgba(37,99,235,0.12);
+            transform-origin: center;
+            will-change: transform;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 22px rgba(37,99,235,0.14);
+        }
+
+        button:active {
+            transform: translateY(0) scale(0.995);
+            box-shadow: 0 4px 10px rgba(37,99,235,0.10);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: default;
+            box-shadow: none;
         }
 
         .hint {

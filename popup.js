@@ -30,7 +30,37 @@ copyBtn.addEventListener("click", async () => {
     }
 
     // copy full (có Bearer)
-    await navigator.clipboard.writeText(data.tib_bearer);
+    // show immediate feedback so the popup doesn't feel frozen
+    copyBtn.disabled = true;
+    const prevText = info.textContent;
+    info.textContent = "Đang copy...";
+
+    try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(data.tib_bearer);
+        } else {
+            // fallback: use textarea + execCommand
+            const ta = document.createElement("textarea");
+            ta.value = data.tib_bearer;
+            ta.style.position = "fixed";
+            ta.style.left = "-9999px";
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            document.body.removeChild(ta);
+        }
+
+        info.textContent = "Đã copy token";
+    } catch (err) {
+        console.warn("Copy failed", err);
+        info.textContent = "Copy thất bại";
+    } finally {
+        // restore button and masked info after short delay
+        setTimeout(() => {
+            copyBtn.disabled = false;
+            loadInfo();
+        }, 900);
+    }
 });
 
 loadInfo();
